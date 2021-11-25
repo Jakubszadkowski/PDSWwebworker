@@ -34,30 +34,28 @@ this.addEventListener('message',function(e){
         default:
             var arra=[];
             var count=0;
-            for(var year=1930;year<=2050;year++)
+            for(var i=0;i<10;i++)
             {
-                for(var month = 1; ii<13;ii++)
+                for(var ii = 0; ii<10;ii++)
                 {
-                    for(var day = 1; day<32;day++)
+                    for(var iii = 0; iii<10;iii++)
                     {
-                        if(day>=31&&(month==4 || month==6 || month==9 || month==11))
-                        {   day=32;
-                            continue;
-                        }
-                        if(day=>29&&month==2&&year%4!=0)
-                            continue;
-                        if(day=>30&&month==2&&year%4==0)
-                            continue;                
-                                       
-                        if(validate(e.data+""+i+ii+iii+iv+v))
+                        for(var iv = 0 ; iv<10;iv++)
                         {
+                            for(var v = 0; v<10;v++)
+                            {
+                                if(validate(e.data+""+i+ii+iii+iv+v))
+                                {
+                                    arra[count]=e.data+""+i+ii+iii+iv+v+"<BR/>";
+                                    count++;
 
+                                }
+                            }
                         }
-                            
-                        
                     }
                 }
             }
+            //this.postMessage([count,arra]);
             this.postMessage(arra);
 
     }

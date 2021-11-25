@@ -25,24 +25,25 @@ else{
 }
 
 }
-
 this.addEventListener('message',function(e){
     switch(e.data){
-        case'start':
-            this.postMessage('watek uruchomiony');
-            break;
         case'stop':
-            this.postMessage('watek zatrzymany');
+            //this.postMessage('watek zatrzymany');
             this.close();
             break;
         default:
-        this.postMessage('nieznane polecenie');
+            if (validate(e.data)) {
+                this.postMessage("true");
+            }
+            else{
+                this.postMessage("false"); 
+            }
 
     }
 },false);
 
-worker.addEventListener('error', function(e) {
-    alert('wystapil blad w linii: ' + e.lineno +
-          ' w pliku: ' + e.filename + '.' +
-          'Tresc bledu: ' + e.message);
-}, false);
+// this.addEventListener('error', function(e) {
+//     alert('wystapil blad w linii: ' + e.lineno +
+//           ' w pliku: ' + e.filename + '.' +
+//           'Tresc bledu: ' + e.message);
+// }, false);
