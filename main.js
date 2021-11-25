@@ -1,25 +1,30 @@
-const first = document.querySelector('#number1');
-const second = document.querySelector('#number2');
+document.getElementById("valOne").addEventListener("click", init()); 
 
-const result = document.querySelector('.result');
 
-if (window.Worker) {
-  const myWorker = new Worker("validate_one_pesel.js");
+function init(){
+	var day = document.getElementById("day").value;
+	var month = document.getElementById("month").value;
+	var year = document.getElementById("year").value;
+	var other = document.getElementById("other").value;
+	if(year>=1800&&year<=1899)month=80+Number(month);
+	if(year>=2000&&year<=2099)month=20+Number(month);
+	if(year>=2100&&year<=2199)month=40+Number(month);
+	if(year>=2200&&year<=2299)month=60+Number(month);
+	if(month.length==1)month='0'+month;
 
-  first.onchange = function() {
-    myWorker.postMessage([first.value, second.value]);
-    console.log('Message posted to worker');
-  }
+	var pesel = year.substring(2,4)+''+month+''+day+''+other;
+	console.log("pesel = "+ pesel);
 
-  second.onchange = function() {
-    myWorker.postMessage([first.value, second.value]);
-    console.log('Message posted to worker');
-  }
-
-  myWorker.onmessage = function(e) {
-    result.textContent = e.data;
-    console.log('Message received from worker');
-  }
-} else {
-  console.log('Your browser doesn\'t support web workers.');
 }
+
+function init2(){
+	var worker = new Worker('validate_one_pesel.js');
+	worker.addEventListener('message', function(e) {
+		alert('otrzymano odpowiedź: ' + e.data);
+	}, false);
+	worker.postMessage("start");
+	worker.postMessage("ala");
+	worker.postMessage('stop')
+
+}
+
