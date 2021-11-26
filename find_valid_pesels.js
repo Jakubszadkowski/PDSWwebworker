@@ -59,21 +59,23 @@ this.addEventListener('message',function(e){
                         var year2 = "";
                         var month2 = "";
                         var day2 = "";
-                        
-                        if(year>=1800&&year<=1899)
-                            month2=80+month;
                         if(year>=2000&&year<=2099)
+                        {
                             month2=20+month;
-
+                            console.log("Month2 = "+month2);
+                        }
+                        else{
+                            if(String(month).length==1)
+                                month2="0"+String(month);
+                            else {
+                                month2=String(month);
+                        }
+                        }
                         
                         year2=String(year).substring(2,4);
 
                         
-                        if(String(month).length==1)
-                            month2="0"+String(month);
-                        else {
-                            month2=String(month);
-                        }
+
 
                         
                         if(String(day).length==1)
